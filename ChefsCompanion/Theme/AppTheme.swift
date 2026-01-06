@@ -1,14 +1,18 @@
 import SwiftUI
 
-/// App-wide theme system with warm, appetizing color palette
+/// App-wide theme system with warm, appetizing color palette - supports Light & Dark mode
 struct AppTheme {
     // MARK: - Primary Colors (Warm coral/orange)
     
     /// Vibrant coral/orange - primary brand color
     static let primary = Color(hex: "FF6B35")
     
-    /// Light coral for backgrounds
-    static let primaryLight = Color(hex: "FFE5DB")
+    /// Light coral for backgrounds (darker in dark mode)
+    static let primaryLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "3D2520"))
+            : UIColor(Color(hex: "FFE5DB"))
+    })
     
     /// Dark coral for pressed states
     static let primaryDark = Color(hex: "E55A2B")
@@ -17,34 +21,77 @@ struct AppTheme {
     
     /// Rich tomato red - for accents
     static let red = Color(hex: "E63946")
-    static let redLight = Color(hex: "FFE5E7")
+    static let redLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "3D1F22"))
+            : UIColor(Color(hex: "FFE5E7"))
+    })
     
     /// Warm burgundy/maroon - for depth
     static let burgundy = Color(hex: "9D4452")
-    static let burgundyLight = Color(hex: "F5E6E8")
+    static let burgundyLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "2D1D20"))
+            : UIColor(Color(hex: "F5E6E8"))
+    })
     
     /// Peachy pink - soft complementary
     static let peach = Color(hex: "FFAB91")
-    static let peachLight = Color(hex: "FFF3ED")
+    static let peachLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "3D2E28"))
+            : UIColor(Color(hex: "FFF3ED"))
+    })
     
     /// Golden amber - for highlights
     static let amber = Color(hex: "FF8F00")
-    static let amberLight = Color(hex: "FFF3E0")
+    static let amberLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "3D2D15"))
+            : UIColor(Color(hex: "FFF3E0"))
+    })
     
     /// Warm terracotta
     static let terracotta = Color(hex: "C75B39")
-    static let terracottaLight = Color(hex: "F9EAE5")
+    static let terracottaLight = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "2F211C"))
+            : UIColor(Color(hex: "F9EAE5"))
+    })
     
     // MARK: - Neutral Colors
     
     /// Background colors
-    static let background = Color(hex: "FFF9F5")
-    static let cardBackground = Color.white
+    static let background = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "1C1816"))
+            : UIColor(Color(hex: "FFF9F5"))
+    })
+    
+    static let cardBackground = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "2A2422"))
+            : UIColor.white
+    })
     
     /// Text colors
-    static let textPrimary = Color(hex: "3C3C3C")
-    static let textSecondary = Color(hex: "777777")
-    static let textMuted = Color(hex: "AFAFAF")
+    static let textPrimary = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "F5F5F5"))
+            : UIColor(Color(hex: "3C3C3C"))
+    })
+    
+    static let textSecondary = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "A0A0A0"))
+            : UIColor(Color(hex: "777777"))
+    })
+    
+    static let textMuted = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor(Color(hex: "6A6A6A"))
+            : UIColor(Color(hex: "AFAFAF"))
+    })
     
     // MARK: - Category Colors (All warm tones)
     
@@ -73,8 +120,17 @@ struct AppTheme {
     
     // MARK: - Shadows
     
-    static let cardShadow = Color.black.opacity(0.08)
-    static let buttonShadow = Color.black.opacity(0.15)
+    static let cardShadow = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor.black.withAlphaComponent(0.3)
+            : UIColor.black.withAlphaComponent(0.08)
+    })
+    
+    static let buttonShadow = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark
+            ? UIColor.black.withAlphaComponent(0.4)
+            : UIColor.black.withAlphaComponent(0.15)
+    })
     
     // MARK: - Corner Radii
     

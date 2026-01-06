@@ -55,11 +55,6 @@ struct RecipeDetailView: View {
                 // Quick stats
                 quickStats(recipe)
                 
-                // YouTube video if available
-                if let youtubeURL = viewModel.youtubeEmbedURL {
-                    videoSection(url: youtubeURL)
-                }
-                
                 // Ingredients with servings calculator
                 ingredientsSection
                 
@@ -252,36 +247,6 @@ struct RecipeDetailView: View {
                 .fontDesign(.rounded)
         }
         .frame(maxWidth: .infinity)
-    }
-    
-    // MARK: - Video Section
-    
-    private func videoSection(url: URL) -> some View {
-        VStack(alignment: .leading, spacing: 14) {
-            HStack(spacing: 8) {
-                ZStack {
-                    Circle()
-                        .fill(Color.red.opacity(0.15))
-                        .frame(width: 32, height: 32)
-                    
-                    Image(systemName: "play.fill")
-                        .foregroundColor(.red)
-                        .font(.caption)
-                }
-                
-                Text("Watch Tutorial")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .fontDesign(.rounded)
-                    .foregroundColor(AppTheme.textPrimary)
-            }
-            
-            YouTubePlayerContainerView(url: url)
-                .clipShape(RoundedRectangle(cornerRadius: AppTheme.radiusMedium))
-                .shadow(color: AppTheme.cardShadow, radius: 8, y: 4)
-        }
-        .opacity(showContent ? 1 : 0)
-        .animation(.spring.delay(0.3), value: showContent)
     }
     
     // MARK: - Ingredients Section
