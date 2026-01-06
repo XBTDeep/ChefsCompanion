@@ -66,8 +66,34 @@ final class FridgeSearchViewVM: ObservableObject {
     // MARK: - Private Properties
     
     private let service = MealDBService.shared
+    private var searchTask: Task<Void, Never>?
     
     // MARK: - Public Methods
+    
+    /// Perform debounced search as user types
+    func performDebouncedSearch() {
+        // Cancel any existing search task
+        searchTask?.cancel()
+        
+        // Don't search if text is empty
+        guard canSearch else {
+            searchResults = []
+            nameSearchResults = []
+            errorMessage = nil
+            return
+        }
+        
+        // Create a new debounced search task
+        searchTask = Task {
+            // Wait 300ms before searching (debounce)
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            
+            // Check if task was cancelled during the wait
+            guard !Task.isCancelled else { return }
+            
+            await search()
+        }
+    }
     
     /// Perform search based on current mode
     func search() async {

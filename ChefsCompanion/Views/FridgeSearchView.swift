@@ -148,6 +148,9 @@ struct FridgeSearchView: View {
                         .fontDesign(.rounded)
                         .focused($isSearchFocused)
                         .submitLabel(.search)
+                        .onChange(of: viewModel.searchText) { _, _ in
+                            viewModel.performDebouncedSearch()
+                        }
                         .onSubmit {
                             Task {
                                 await viewModel.search()
